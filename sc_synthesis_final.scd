@@ -146,7 +146,7 @@ This means that sclang is the Max... you could say?
 s.quit;
 
 //So let's make some sound
-().play // run this to make your first sound with SuperCollider!
+().play; // run this to make your first sound with SuperCollider!
 
 //when we want to make sound we normally need to use the METHOD .play. Like .postln above this tells supercollider what to do with the information you give it.
 // if you don't give it any information about what to play it will just play the default sound, which is what we just heard.
@@ -329,6 +329,10 @@ ProxyMixer.new(p);
 
 //We can see the overall sound output level here
 s.meter
+
+<<<<<<
+REVIEWED TO HERE
+>>>>>>
 
 /*__________________________________________________________________/*
 

@@ -12,19 +12,53 @@
 
 s.boot;
 
-~sound_1
+// Good old drone
+~sound_1 = {SinOsc.ar([110, 106], 0, 0.5)}; ~sound_1.play;
 
 ~sound_2
 
 ~sound_3
 
+~sound_1.play;
+~sound_1.stop;
+
+p = ProxySpace.push;
+p.pop;
+ProxyMixer.new(p);
+
+s.meter;
+
 s.quit;
 
 /*
-Ugens to use:
+Basic sounds to use:
 - SinOsc
 - Saw
+- LFSaw - guess that's just a low frequency version of Saw ...
 - Pulse
 - PinkNoise
+- BrownNoise
+- WhiteNoise
+- Impulse
+*/
+
+/*
+Control with:
 - Pan2
+- OnePole - dunno what that does
+- Mix
+- RHPF - filter
+- LPF - another filter
+*/
+
+/*
+Combine via:
+- Ring Modulation
+*/
+
+/*
+Don't forget
+- ProxySpace for live coding
+and mix it all together with
+- ProxyMixer
 */
