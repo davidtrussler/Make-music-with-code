@@ -13,7 +13,8 @@
 s.boot;
 
 // Good old drone
-~sound_1 = {SinOsc.ar([110, 106], 0, 0.5)}; ~sound_1.play;
+// Additive synthesis
+~sound_1 = {Splay.ar(SinOsc.ar([310, 206, 320], 0, 0.5))}; ~sound_1.play;
 
 ~sound_2
 
@@ -47,12 +48,16 @@ Control with:
 - Pan2
 - OnePole - dunno what that does
 - Mix
+- Splay
 - RHPF - filter
 - LPF - another filter
 */
 
 /*
 Combine via:
+- Additive Synthesis:
+--using arrays, Mix, Splay, Pan2
+- Subtractive Synthesis:
 - Ring Modulation
 */
 

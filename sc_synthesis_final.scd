@@ -330,10 +330,6 @@ ProxyMixer.new(p);
 //We can see the overall sound output level here
 s.meter
 
-<<<<<<
-REVIEWED TO HERE
->>>>>>
-
 /*__________________________________________________________________/*
 
    ADDITIVE SYNTHESIS
@@ -389,7 +385,11 @@ REVIEWED TO HERE
 
 /*__________________________________________________________________/*
 
-   SUBTRACTIVE SYNTHESIS
+<<<<<<
+REVIEWED TO HERE
+>>>>>>
+
+SUBTRACTIVE SYNTHESIS
 
      - A method of sound synthesis where some frequencies of an audio signal are attenuated (or reduced) in amplitude using a filter
      - There are different types of filter you can use.
