@@ -13,22 +13,24 @@
 s.boot;
 
 // Good old drone
-// Additive synthesis
+// Additive Synthesis
 ~sound_1 = {Splay.ar(SinOsc.ar([310, 206, 320], 0, 0.5))}; ~sound_1.play;
+~sound_1.stop;
 
-~sound_2
+// Noise
+// Subtractive Synthesis
+~sound_2 = {Pan2.ar(WhiteNoise.ar(0.5), 0)};
+~sound_2_filter = {RLPF.ar(~sound_2, 880)}; ~sound_2_filter.play;
 
 ~sound_3
 
-~sound_1.play;
-~sound_1.stop;
 
 p = ProxySpace.push;
 p.pop;
+
 ProxyMixer.new(p);
 
 s.meter;
-
 s.quit;
 
 /*
@@ -50,14 +52,17 @@ Control with:
 - Mix
 - Splay
 - RHPF - filter
-- LPF - another filter
+- RLPF- another filter
+- MouseX, MouseY
+- Line
 */
 
 /*
 Combine via:
 - Additive Synthesis:
---using arrays, Mix, Splay, Pan2
+-- using arrays, Mix, Splay, Pan2
 - Subtractive Synthesis:
+-- using filters: LPF, HPF, BPF
 - Ring Modulation
 */
 
