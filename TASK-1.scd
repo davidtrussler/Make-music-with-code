@@ -13,7 +13,7 @@
 s.boot;
 
 // Additive Synthesis
-~sound_1 = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))};
+~sound_1 = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.4))};
 ~sound_1.play;
 ~sound_1.stop;
 
@@ -45,12 +45,25 @@ s.boot;
 ~sound_5.stop;
 
 
+// Envelopes
+~snd = {Pan2.ar(SinOsc.ar(200), 0)};
+~env = Env.sine();
+~sound = {~snd * EnvGen.kr(~env)};
+~sound.play;
+~sound.stop;
+
+Env.perc().plot
+Env.linen().plot
+Env.triangle().plot
+Env.sine().plot
+
 p = ProxySpace.push;
 p.pop;
 
 ProxyMixer.new(p);
 
 s.meter;
+s.scope;
 s.quit;
 
 /*
