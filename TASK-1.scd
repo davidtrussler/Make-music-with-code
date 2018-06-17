@@ -14,15 +14,24 @@ s.boot;
 
 // Good old drone
 // Additive Synthesis
-~sound_1 = {Splay.ar(SinOsc.ar([310, 206, 320], 0, 0.5))}; ~sound_1.play;
+~sound_1 = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))};
+~sound_1.play;
 ~sound_1.stop;
 
 // Noise
 // Subtractive Synthesis
 ~sound_2 = {Pan2.ar(WhiteNoise.ar(0.5), 0)};
-~sound_2_filter = {RLPF.ar(~sound_2, 880)}; ~sound_2_filter.play;
+~sound_2_filter = {RLPF.ar(~sound_2, 440)};
+~sound_2_filter.play;
+~sound_2_filter.stop;
 
-~sound_3
+// Ring modulation
+~sound_3a = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))};
+~sound_3b = {Splay.ar(SinOsc.ar([320, 106, 220], 0, 0.5))};
+~sound_3 = {~sound_3a * ~sound_3b};
+~sound_3a.play;
+~sound_3b.play;
+~sound_3.play;
 
 
 p = ProxySpace.push;
@@ -36,8 +45,7 @@ s.quit;
 /*
 Basic sounds to use:
 - SinOsc
-- Saw
-- LFSaw - guess that's just a low frequency version of Saw ...
+- LFSaw
 - Pulse
 - PinkNoise
 - BrownNoise
@@ -48,7 +56,6 @@ Basic sounds to use:
 /*
 Control with:
 - Pan2
-- OnePole - dunno what that does
 - Mix
 - Splay
 - RHPF - filter

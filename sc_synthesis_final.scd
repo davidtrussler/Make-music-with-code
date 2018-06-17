@@ -467,10 +467,6 @@ s.scope;
 ~trish ={HPF.ar(Saw.ar(400), 600, Line.kr(0.1, 1, 15))}; ~trish.play
 
 
-<<<<<<
-REVIEWED TO HERE
->>>>>>
-
 /*__________________________________________________________________/*
 
    RING MODULATION
@@ -521,7 +517,9 @@ These extra frequencies that appear are called sidebands.
 */
 
 
-
+<<<<<<
+REVIEWED TO HERE
+>>>>>>
 
 /*__________________________________________________________________/*
 
@@ -815,3 +813,4 @@ s.makeWindow
 */__________________________________________________________________*/
 
 
+mail@davidtrussler.net
