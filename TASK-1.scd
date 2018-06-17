@@ -13,15 +13,17 @@
 s.boot;
 
 // Additive Synthesis
-~sound_1 = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.4))};
+~sound_1 = {Splay.ar(SinOsc.ar([520, 206, 780, 320, 160, 450], 0, 1/6))};
 ~sound_1.play;
 ~sound_1.stop;
+
 
 // Subtractive Synthesis
 ~sound_2 = {Pan2.ar(WhiteNoise.ar(0.5), 0)};
 ~sound_2_filter = {RLPF.ar(~sound_2, 440)};
 ~sound_2_filter.play;
 ~sound_2_filter.stop;
+
 
 // Ring modulation
 ~sound_3a = {Splay.ar(SinOsc.ar([720, 206, 320], 0, 0.5))}; // carrier
@@ -30,6 +32,7 @@ s.boot;
 ~sound_3.play;
 ~sound_3.stop;
 
+
 // Amplitude modulation
 ~sound_4a = {Pan2.ar(SinOsc.ar(230, 0, 0.5), 0)}; // carrier
 ~sound_4b = {Pan2.ar(SinOsc.ar(0.5, 0, 0.5, 0.5), 0)}; // modulator
@@ -37,10 +40,11 @@ s.boot;
 ~sound_4.play;
 ~sound_4.stop;
 
+
 // Frequency modulation
 ~sound_5a = {SinOsc.ar(1)};
 ~sound_5 = {SinOsc.ar([230, 240] + (100*~sound_5a), 0, 0.6)};
-~sound_5a.scope;
+~sound_5a.play;
 ~sound_5.play;
 ~sound_5.stop;
 
@@ -64,6 +68,70 @@ Env.sine().plot
 ~effect = {CombC.ar(~snd, 10)};
 ~effect.play;
 ~effect.stop;
+
+
+// SynthDef
+// Default SynthDef
+(
+SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440|
+	var snd, env;
+
+	snd = // change here for different sound.
+
+	env = EnvGen.ar(Env.perc(0.01,sustain),doneAction:2);
+
+	OffsetOut.ar(out, snd * env * amp);
+}).add;
+)
+
+// SynthDef_percussion
+(
+SynthDef(\sn_perc,
+	{ |out=0, amp=0.5, sustain=0.2, freq=40|
+		var sin, wn, snd, env;
+		sin = {Pan2.ar(SinOsc.ar(Line.ar(freq, freq/2, sustain), 0, 1), 0)};
+		// wn = {Pan2.ar(WhiteNoise.ar(0.5), 0)};
+		// snd = {sin * wn};
+		env = EnvGen.ar(Env.perc(0.01, 1), doneAction:2);
+
+		OffsetOut.ar(out, sin * env * amp);
+}).add;
+)
+
+x = Synth(\sn_perc, [\freq, 120, \sustain, 0.4]);
+
+
+// SynthDef_pad
+(
+SynthDef(\sn_pad, { |out=0, amp=1, sustain=5, freq=320|
+	var snd, env;
+
+	snd = {Splay.ar(SinOsc.ar([freq * 2.4, freq * 2, freq * 1.4, freq, freq * 1.5, freq * 1.9, freq * 2.5], 0, 1/6))};
+
+	env = EnvGen.ar(Env.linen(sustain * 0.08, sustain * 0.12, sustain * 0.8), doneAction:2);
+
+	OffsetOut.ar(out, snd * env * amp);
+}).add;
+)
+
+y = Synth(\sn_pad, [\freq, 600, \sustain, 5]);
+
+
+// SynthDef_noisy/unpredictable
+(
+SynthDef(\sn_nun, { |out=0, amp=1, sustain=10, freq=440|
+	var carrier, modulator, snd, env;
+
+	carrier = {Pan2.ar(SinOsc.ar(freq, 0, 0.5))};
+	modulator = {BrownNoise.ar(0.5)};
+	snd = {carrier * modulator !2};
+	env = EnvGen.ar(Env.triangle(sustain), doneAction:2);
+
+	OffsetOut.ar(out, snd * env * amp);
+}).add;
+)
+
+z = Synth(\sn_nun, [\freq, 640, \sustain, 40]);
 
 
 p = ProxySpace.push;

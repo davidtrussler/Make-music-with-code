@@ -263,7 +263,7 @@ s.scope(2)
 
 // These values are called 'arguments' and we place them in brackets after the oscillator.
 
-~helen = { SinOsc.ar(freq: 600, phase: 0, mul: 0.3 )  }; ~helen.play // try changing the numbers after 'freq:' and 'mul:' to turn ~alice into a new sound.
+~helen = { SinOsc.ar(freq: 400, phase: 0, mul: 0.3 )  }; ~helen.play // try changing the numbers after 'freq:' and 'mul:' to turn ~alice into a new sound.
 // 'mul' = amplitude,
 // 'phase' = offset of signal but we won't look at this till later.
 // We need to make sure there is a bracket after each argument so SuperCollider knows it's getting a new piece of information.
@@ -755,7 +755,6 @@ SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440, pan=0|
 
 	OffsetOut.ar(out, panner);
 }).add;
-
 )
 
 //Your SynthDef
@@ -763,7 +762,7 @@ SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440, pan=0|
 SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440|
 	var snd, env;
 
-	snd = SinOsc.ar([320, 321]);
+	snd = // change here for different sound.
 
 	env = EnvGen.ar(Env.perc(0.01,sustain),doneAction:2);
 	OffsetOut.ar(out, snd * env * amp);
