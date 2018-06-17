@@ -57,6 +57,15 @@ Env.linen().plot
 Env.triangle().plot
 Env.sine().plot
 
+
+// Effects
+~snd = {Pan2.ar(SinOsc.ar(200, 0, 0.5), 0)};
+~effect = {GVerb.ar(~snd, 10)};
+~effect = {CombC.ar(~snd, 10)};
+~effect.play;
+~effect.stop;
+
+
 p = ProxySpace.push;
 p.pop;
 
