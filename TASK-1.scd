@@ -12,13 +12,11 @@
 
 s.boot;
 
-// Good old drone
 // Additive Synthesis
 ~sound_1 = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))};
 ~sound_1.play;
 ~sound_1.stop;
 
-// Noise
 // Subtractive Synthesis
 ~sound_2 = {Pan2.ar(WhiteNoise.ar(0.5), 0)};
 ~sound_2_filter = {RLPF.ar(~sound_2, 440)};
@@ -26,12 +24,22 @@ s.boot;
 ~sound_2_filter.stop;
 
 // Ring modulation
-~sound_3a = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))};
-~sound_3b = {Splay.ar(SinOsc.ar([320, 106, 220], 0, 0.5))};
-~sound_3 = {~sound_3a * ~sound_3b};
+~sound_3a = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))}; // carrier
+~sound_3b = {Splay.ar(SinOsc.ar([320, 106, 220], 0, 0.5))}; // modulator
+~sound_4 = {~sound_3a * ~sound_3b};
 ~sound_3a.play;
 ~sound_3b.play;
+~sound_3a.stop;
+~sound_3b.stop;
 ~sound_3.play;
+~sound_3.stop;
+
+// Amplitude modulation
+~sound_4a = {Pan2.ar(SinOsc.ar(230, 0, 0.5), 0)}; // carrier
+~sound_4b = {Pan2.ar(SinOsc.ar(0.5, 0, 0.5, 0.5), 0)}; // modulator
+~sound_4 = {~sound_4a * ~sound_4b};
+~sound_4.play;
+~sound_4.stop;
 
 
 p = ProxySpace.push;

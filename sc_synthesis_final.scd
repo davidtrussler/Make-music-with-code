@@ -517,9 +517,6 @@ These extra frequencies that appear are called sidebands.
 */
 
 
-<<<<<<
-REVIEWED TO HERE
->>>>>>
 
 /*__________________________________________________________________/*
 
@@ -555,6 +552,10 @@ NB if you want to find out the values you are getting from MouseX and MouseY, ju
 i.e MouseY.kr(0.1,5000,'exponential').poll
 */
 
+
+<<<<<<
+REVIEWED TO HERE
+>>>>>>
 
 
 /*__________________________________________________________________/*
