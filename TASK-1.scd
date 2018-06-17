@@ -24,13 +24,9 @@ s.boot;
 ~sound_2_filter.stop;
 
 // Ring modulation
-~sound_3a = {Splay.ar(SinOsc.ar([520, 206, 320], 0, 0.5))}; // carrier
-~sound_3b = {Splay.ar(SinOsc.ar([320, 106, 220], 0, 0.5))}; // modulator
-~sound_4 = {~sound_3a * ~sound_3b};
-~sound_3a.play;
-~sound_3b.play;
-~sound_3a.stop;
-~sound_3b.stop;
+~sound_3a = {Splay.ar(SinOsc.ar([720, 206, 320], 0, 0.5))}; // carrier
+~sound_3b = {Splay.ar(SinOsc.ar([320, 156, 120], 0, 0.5))}; // modulator
+~sound_3 = {~sound_3a * ~sound_3b};
 ~sound_3.play;
 ~sound_3.stop;
 
@@ -40,6 +36,13 @@ s.boot;
 ~sound_4 = {~sound_4a * ~sound_4b};
 ~sound_4.play;
 ~sound_4.stop;
+
+// Frequency modulation
+~sound_5a = {SinOsc.ar(1)};
+~sound_5 = {SinOsc.ar([230, 240] + (100*~sound_5a), 0, 0.6)};
+~sound_5a.scope;
+~sound_5.play;
+~sound_5.stop;
 
 
 p = ProxySpace.push;

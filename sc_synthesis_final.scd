@@ -553,9 +553,6 @@ i.e MouseY.kr(0.1,5000,'exponential').poll
 */
 
 
-<<<<<<
-REVIEWED TO HERE
->>>>>>
 
 
 /*__________________________________________________________________/*
@@ -619,6 +616,11 @@ Control the modulator frequency and index with the mouse
 */
 
 ~fm1 = {SinOsc.ar(440 + SinOsc.ar(MouseX.kr(2,2000,1), 0, MouseY.kr(1,1000)), 0, 0.5)!2}; ~fm1.play;
+
+
+<<<<<<
+REVIEWED TO HERE
+>>>>>>
 
 
 /*__________________________________________________________________/*
