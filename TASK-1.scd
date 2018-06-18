@@ -70,36 +70,19 @@ Env.sine().plot
 ~effect.stop;
 
 
-// SynthDef
-// Default SynthDef
-(
-SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440|
-	var snd, env;
-
-	snd = // change here for different sound.
-
-	env = EnvGen.ar(Env.perc(0.01,sustain),doneAction:2);
-
-	OffsetOut.ar(out, snd * env * amp);
-}).add;
-)
+// SynthDefs
 
 // SynthDef_percussion
 (
 SynthDef(\sn_perc,
-	{ |out=0, amp=0.5, sustain=0.2, freq=40|
+	{ |out=0, amp=1, sustain=0.2, freq=40|
 		var sin, wn, snd, env;
 		sin = {Pan2.ar(SinOsc.ar(Line.ar(freq, freq/2, sustain), 0, 1), 0)};
-		// wn = {Pan2.ar(WhiteNoise.ar(0.5), 0)};
-		// snd = {sin * wn};
 		env = EnvGen.ar(Env.perc(0.01, 1), doneAction:2);
 
 		OffsetOut.ar(out, sin * env * amp);
 }).add;
 )
-
-x = Synth(\sn_perc, [\freq, 120, \sustain, 0.4]);
-
 
 // SynthDef_pad
 (
@@ -113,9 +96,6 @@ SynthDef(\sn_pad, { |out=0, amp=1, sustain=5, freq=320|
 	OffsetOut.ar(out, snd * env * amp);
 }).add;
 )
-
-y = Synth(\sn_pad, [\freq, 600, \sustain, 5]);
-
 
 // SynthDef_noisy/unpredictable
 (
@@ -131,7 +111,13 @@ SynthDef(\sn_nun, { |out=0, amp=1, sustain=10, freq=440|
 }).add;
 )
 
-z = Synth(\sn_nun, [\freq, 640, \sustain, 40]);
+
+x = Synth(\sn_perc, [\freq, 80, \sustain, 0.4]);
+y = Synth(\sn_pad, [\freq, 300, \sustain, 5]);
+z = Synth(\sn_nun, [\freq, 2100, \sustain, 40]);
+
+s.record();
+s.stopRecording;
 
 
 p = ProxySpace.push;
