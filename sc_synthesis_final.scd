@@ -146,7 +146,7 @@ This means that sclang is the Max... you could say?
 s.quit;
 
 //So let's make some sound
-().play // run this to make your first sound with SuperCollider!
+().play; // run this to make your first sound with SuperCollider!
 
 //when we want to make sound we normally need to use the METHOD .play. Like .postln above this tells supercollider what to do with the information you give it.
 // if you don't give it any information about what to play it will just play the default sound, which is what we just heard.
@@ -263,7 +263,7 @@ s.scope(2)
 
 // These values are called 'arguments' and we place them in brackets after the oscillator.
 
-~helen = { SinOsc.ar(freq: 600, phase: 0, mul: 0.3 )  }; ~helen.play // try changing the numbers after 'freq:' and 'mul:' to turn ~alice into a new sound.
+~helen = { SinOsc.ar(freq: 400, phase: 0, mul: 0.3 )  }; ~helen.play // try changing the numbers after 'freq:' and 'mul:' to turn ~alice into a new sound.
 // 'mul' = amplitude,
 // 'phase' = offset of signal but we won't look at this till later.
 // We need to make sure there is a bracket after each argument so SuperCollider knows it's getting a new piece of information.
@@ -385,7 +385,8 @@ s.meter
 
 /*__________________________________________________________________/*
 
-   SUBTRACTIVE SYNTHESIS
+
+SUBTRACTIVE SYNTHESIS
 
      - A method of sound synthesis where some frequencies of an audio signal are attenuated (or reduced) in amplitude using a filter
      - There are different types of filter you can use.
@@ -466,7 +467,6 @@ s.scope;
 ~trish ={HPF.ar(Saw.ar(400), 600, Line.kr(0.1, 1, 15))}; ~trish.play
 
 
-
 /*__________________________________________________________________/*
 
    RING MODULATION
@@ -518,7 +518,6 @@ These extra frequencies that appear are called sidebands.
 
 
 
-
 /*__________________________________________________________________/*
 
    AMPLITUDE MODULATION
@@ -552,6 +551,7 @@ NB if you want to find out the values you are getting from MouseX and MouseY, ju
 
 i.e MouseY.kr(0.1,5000,'exponential').poll
 */
+
 
 
 
@@ -616,6 +616,7 @@ Control the modulator frequency and index with the mouse
 */
 
 ~fm1 = {SinOsc.ar(440 + SinOsc.ar(MouseX.kr(2,2000,1), 0, MouseY.kr(1,1000)), 0, 0.5)!2}; ~fm1.play;
+
 
 
 /*__________________________________________________________________/*
@@ -754,7 +755,6 @@ SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440, pan=0|
 
 	OffsetOut.ar(out, panner);
 }).add;
-
 )
 
 //Your SynthDef
@@ -762,7 +762,7 @@ SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440, pan=0|
 SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440|
 	var snd, env;
 
-	snd = SinOsc.ar([320, 321]);
+	snd = // change here for different sound.
 
 	env = EnvGen.ar(Env.perc(0.01,sustain),doneAction:2);
 	OffsetOut.ar(out, snd * env * amp);
@@ -811,3 +811,4 @@ s.makeWindow
 */__________________________________________________________________*/
 
 
+mail@davidtrussler.net
