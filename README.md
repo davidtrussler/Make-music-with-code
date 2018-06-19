@@ -15,3 +15,7 @@ Download from [here](https://www.dropbox.com/sh/o42d7vcmzdr3trl/AAAd0qnrTXPXj2vP
 	- one that is noisy/unpredictable.
 - Record a 3-5 minute jam using synths you've edited
 - Recorded file [here](https://www.dropbox.com/s/9rtw1j8ozrqntvy/SC_180618_221319.aiff?dl=0)
+
+### Part Two
+- Review what was learned in this session
+- Complete the Task
