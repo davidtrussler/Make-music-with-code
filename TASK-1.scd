@@ -1,14 +1,57 @@
-/*__________________________________________________________________/*
+// Final code to create three SynthDefs
 
-   TASKS TO COMPLETE - week 1
+// SynthDef_percussion
+(
+SynthDef(\sn_perc,
+	{ |out=0, amp=1, sustain=0.2, freq=40|
+		var sin, wn, snd, env;
+		sin = {Pan2.ar(SinOsc.ar(Line.ar(freq, freq/2, sustain), 0, 1), 0)};
+		env = EnvGen.ar(Env.perc(0.01, 1), doneAction:2);
 
-      - Make at least 3 different synthdefs, one that sounds like a percussion instrument, one like pads and one that is noisy/unpredictable.
-      - Do the reading!
-- Record a 3-5 minute jam using synths you've edited
+		OffsetOut.ar(out, sin * env * amp);
+}).add;
+)
 
-      - Email me your completed code and audio [midigirl1990@gmail.com]
+// SynthDef_pad
+(
+SynthDef(\sn_pad, { |out=0, amp=1, sustain=5, freq=320|
+	var snd, env;
 
-*/__________________________________________________________________*/
+	snd = {Splay.ar(SinOsc.ar([freq * 2.4, freq * 2, freq * 1.4, freq, freq * 1.5, freq * 1.9, freq * 2.5], 0, 1/6))};
+
+	env = EnvGen.ar(Env.linen(sustain * 0.08, sustain * 0.12, sustain * 0.8), doneAction:2);
+
+	OffsetOut.ar(out, snd * env * amp);
+}).add;
+)
+
+// SynthDef_noisy/unpredictable
+(
+SynthDef(\sn_nun, { |out=0, amp=1, sustain=10, freq=440|
+	var carrier, modulator, snd, env;
+
+	carrier = {Pan2.ar(SinOsc.ar(freq, 0, 0.5))};
+	modulator = {BrownNoise.ar(0.5)};
+	snd = {carrier * modulator !2};
+	env = EnvGen.ar(Env.triangle(sustain), doneAction:2);
+
+	OffsetOut.ar(out, snd * env * amp);
+}).add;
+)
+
+// Control and play the SynthDefs
+x = Synth(\sn_perc, [\freq, 80, \sustain, 0.4]);
+y = Synth(\sn_pad, [\freq, 300, \sustain, 5]);
+z = Synth(\sn_nun, [\freq, 2100, \sustain, 40]);
+
+// Record the above sounds
+s.record();
+s.stopRecording;
+
+
+/*
+** Various notes etc. during the task completion
+*/
 
 s.boot;
 
@@ -71,53 +114,20 @@ Env.sine().plot
 
 
 // SynthDefs
-
-// SynthDef_percussion
+// SynthDef_Default
 (
-SynthDef(\sn_perc,
-	{ |out=0, amp=1, sustain=0.2, freq=40|
-		var sin, wn, snd, env;
-		sin = {Pan2.ar(SinOsc.ar(Line.ar(freq, freq/2, sustain), 0, 1), 0)};
-		env = EnvGen.ar(Env.perc(0.01, 1), doneAction:2);
+SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=440, pan=0|
+	var snd, env, panner;
 
-		OffsetOut.ar(out, sin * env * amp);
+	snd = SinOsc.ar(freq, 0.5pi, 3).tanh;
+
+	env = EnvGen.ar(Env.perc(0.01,sustain),doneAction:2);
+
+	panner = Pan2.ar(snd, pan, env);
+
+	OffsetOut.ar(out, panner);
 }).add;
 )
-
-// SynthDef_pad
-(
-SynthDef(\sn_pad, { |out=0, amp=1, sustain=5, freq=320|
-	var snd, env;
-
-	snd = {Splay.ar(SinOsc.ar([freq * 2.4, freq * 2, freq * 1.4, freq, freq * 1.5, freq * 1.9, freq * 2.5], 0, 1/6))};
-
-	env = EnvGen.ar(Env.linen(sustain * 0.08, sustain * 0.12, sustain * 0.8), doneAction:2);
-
-	OffsetOut.ar(out, snd * env * amp);
-}).add;
-)
-
-// SynthDef_noisy/unpredictable
-(
-SynthDef(\sn_nun, { |out=0, amp=1, sustain=10, freq=440|
-	var carrier, modulator, snd, env;
-
-	carrier = {Pan2.ar(SinOsc.ar(freq, 0, 0.5))};
-	modulator = {BrownNoise.ar(0.5)};
-	snd = {carrier * modulator !2};
-	env = EnvGen.ar(Env.triangle(sustain), doneAction:2);
-
-	OffsetOut.ar(out, snd * env * amp);
-}).add;
-)
-
-
-x = Synth(\sn_perc, [\freq, 80, \sustain, 0.4]);
-y = Synth(\sn_pad, [\freq, 300, \sustain, 5]);
-z = Synth(\sn_nun, [\freq, 2100, \sustain, 40]);
-
-s.record();
-s.stopRecording;
 
 
 p = ProxySpace.push;
