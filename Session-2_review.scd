@@ -1,6 +1,8 @@
 // Review of Session 2
 // Compiled with general notes (https://www.evernote.com/shard/s336/nl/52980809/4025006e-4517-4451-a468-cf2ea64cecd3/)
 
+s.boot;
+
 // Envelopes
 
 // Env
@@ -34,7 +36,7 @@ x = Synth(\sn, [\freq, 200, \sustain, 5, \pan, -1]);
 // Routine
 (
 r = Routine({
-    [168, 192, 224, 252, 280, 316].do{
+    [168, 192, 224, 252, 280, 316].scramble.do {
         arg nn;
         Synth(\sn, [\freq, nn, \sustain, 5, \pan, 0]);
         1.wait
@@ -45,6 +47,30 @@ r = Routine({
 r.play;
 r.stop;
 
+// Some useful Array methods to use with Routines
+(
+10.do({ arg i;
+    [1, 2, 3, 4].pyramid(i + 1).postcs;
+});
+)
+
+[1, 2, 3, 4, 5].rotate(3).postln;
+
+[1, 2, 3].stutter(2).postln;
+
+[1, 2, 3, 4].mirror.postln;
+
+[1, 2, 3, 4].mirror1.postln;
+
+[1, 2, 3, 4].mirror2.postln;
+
+[1, 2, 3].reverse;
+
+[1, 2, 3].normalize; // default min=0, max= 1
+[1, 2, 3].normalize(-20, 10);
+
+
+s.quit;
 
 
 

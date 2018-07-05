@@ -271,10 +271,6 @@ r = Routine({
 r.play;
 r.stop;
 
-
-<<<<< REVIEWED TO HERE >>>>>
-
-
 //Below we can see that if we place a {}.loop around the contents of the Routine it will run indefinitely
 (
 r = Routine({
@@ -308,6 +304,9 @@ r.stop
 
 
 //What issues are we facing here?
+
+
+<<<<< REVIEWED TO HERE >>>>>
 
 
 /*__________________________________________________________________/*
