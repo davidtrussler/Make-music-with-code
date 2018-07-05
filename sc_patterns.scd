@@ -93,6 +93,8 @@ s.options = o;
 
 )
 
+s.boot
+
 //(4).kr and .ar
 
 /*
@@ -194,7 +196,7 @@ Nice examples here: https://composerprogrammer.com/teaching/supercollider/sctuto
 //We can find more out about Envelopes using the helpfile
 
 //This makes an Envelope with three control points, at y positions given by the first array, and separated in x by the values in the second (see the Env help file). The curve drawn out should actually look like a letter envelope!
-Env([1,0,1],[1,1]).plot
+Env.new([1,0,1],[1,1]).plot
 
 //So if we increase the second x value to 12 we can see it stretches the second half of the envelope
 Env([1,0,1],[1,12]).plot
@@ -213,6 +215,8 @@ Env.perc(0.05,0.5,1.0,0).plot //arguments attackTime, releaseTime, level, curve:
 
 //Can you discover some more envelopes?
 
+Env.shapeNames;
+
 /*__________________________________________________________________/*
 
    PLAYING SYNTHDEFS
@@ -221,15 +225,15 @@ Env.perc(0.05,0.5,1.0,0).plot //arguments attackTime, releaseTime, level, curve:
       - Make your own SynthDef for Catherine below.
 */__________________________________________________________________*/
 
+s.boot;
 
 (
-SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=100|
+SynthDef(\sn, {
+	|out=0, amp=0.1, sustain=0.1, pan=0, freq = 200|
 	var snd, env;
-
-	snd = Pulse.ar([100], 0.5, SinOsc.kr(10, 0, 0.5, 0.5));
-
-	env = EnvGen.ar(Env.perc(0.01,sustain),doneAction:2);
-	OffsetOut.ar(out, snd * env * amp);
+	snd = Pan2.ar(SinOsc.ar(freq), pan);
+	env = EnvGen.ar(Env.perc(0.01, sustain), doneAction: 2);
+	Out.ar(out, snd * env * amp);
 }).add;
 )
 
@@ -237,7 +241,7 @@ SynthDef(\sn, { |out=0,amp=0.1,sustain=0.1,freq=100|
 x = Synth(\sn)
 
 //Control parameters of the SynthDef
-x = Synth(\sn, [\freq, 100, \sustain, 5, \pan, 0]);
+x = Synth(\sn, [\freq, 200, \sustain, 1, \pan, 0]);
 
 
 //But just running those instances of the synth sound is really not a very easy way of making music.. also we have to like manually change the nubmers everytime we want a fresh sound. Eurgh it's so annoying! There must be a better way? Well I'm gonna take you through a whole host of different ways until we come to the way that I think works best.
@@ -245,7 +249,7 @@ x = Synth(\sn, [\freq, 100, \sustain, 5, \pan, 0]);
 
 //We can iterate through an array of note number to create a chord.
 (
-[56, 34, 78].do{
+[156, 234, 378].do{
 	arg nn;
 	Synth(\sn, [\freq, nn, \sustain, 5, \pan, 0]);
 }
@@ -255,16 +259,21 @@ x = Synth(\sn, [\freq, 100, \sustain, 5, \pan, 0]);
 //Using a Task or Routine, we can create pauses between the notes to sequence them.
 
 (
-Routine({
-
-		[42, 48, 56, 63, 70, 79].do{
-			arg nn;
-			Synth(\sn, [\freq, nn, \sustain, 5, \pan, 0]);
-			1.wait
-		}
-}).play
-
+r = Routine({
+	[168, 192, 224, 252, 280, 316].do{
+		arg nn;
+		Synth(\sn, [\freq, nn, \sustain, 5, \pan, 0]);
+		1.wait
+	}
+}).loop
 )
+
+r.play;
+r.stop;
+
+
+<<<<< REVIEWED TO HERE >>>>>
+
 
 //Below we can see that if we place a {}.loop around the contents of the Routine it will run indefinitely
 (
@@ -283,7 +292,6 @@ r = Routine({
 	}}.loop;
 
 }).play
-
 )
 
 //OK this is sounding a bit more musical and you can't really predict what is going on very well. What is that scramble method doing? Do we have some more options here?
