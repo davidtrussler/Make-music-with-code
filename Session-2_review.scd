@@ -13,6 +13,9 @@ Env.perc(0.05,0.5,1.0,0).plot
 EnvGen.ar(Env.perc(0.05,0.5,1.0,0), doneAction: 2);
 
 
+/************************************************************/
+
+
 // SynthDef
 (
 SynthDef(\sn, {
@@ -29,6 +32,9 @@ x = Synth(\sn);
 
 // Control parameters of the SynthDef
 x = Synth(\sn, [\freq, 200, \sustain, 5, \pan, -1]);
+
+
+/************************************************************/
 
 
 // Tasks and Routines
@@ -70,13 +76,60 @@ r.stop;
 [1, 2, 3].normalize(-20, 10);
 
 
+/************************************************************/
+
+
+// Patterns
+
+Pseries(0, 1, 10).asStream.all;
+
+Pseq([100, 200, 300, 400], 2).asStream.all;
+
+Pser([0,1,2,3,4], 8).asStream.all;
+
+Pslide([1, 2, 3, 4, 5, 6, 7, 8], 7, 3, 1, 0, false).asStream.all;
+
+Prand([1, 2, 3, 4, 5], 6).asStream.all;
+
+Pxrand([1, 2, 3, 4, 5], 6).asStream.all;
+
+Pshuf([1, 2, 3, 4, 5], 3).asStream.all;
+
+Pwrand([1, 2, 3, 4, 5], [1, 3, 5].normalizeSum, 3).asStream.all;
+
+// Can't get my head round these two at all at the minute
+// Pwalk, Ptuple
+(
+Pwalk(
+	// list
+	[1, 2, 3, 4, 5],
+	// stepPattern
+	Pwrand([-2, -1, 0, 1, 2], [0.05, 0.1, 0.15, 1, 0.1].normalizeSum, inf),
+	// directionPattern
+	1,
+	// startPos
+	0
+).asStream.all;
+)
+
+(
+// var a, b;
+a = Pseq([1, 2, 3], inf);
+b = Pseq([65, 76], inf);
+c = Ptuple([a, a, b], inf);
+x = c.asStream;
+8.do({ x.next.postln; });
+)
+
+// This works but dunno what it's doing
+Place([0, [1, 2], [3, 4, 5]], 3, 0).asStream.all;
+
+// Don't seem to get anything from this either
+Pwhite(1, 10).asStream.all;
+
+
+/************************************************************/
+
+
 s.quit;
-
-
-
-
 s.meter;
-
-a = Pseries(0, 1, 10);
-b = a.asStream;
-b.next
