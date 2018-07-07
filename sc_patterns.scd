@@ -467,9 +467,6 @@ Pprob
 Pwhite(0.0, 1.0, inf).asStream.nextN(10000).histo(200, 0.0, 1.0).plot;
 
 
-<<<<< REVIEWED TO HERE >>>>>
-
-
 /*__________________________________________________________________/*
 
    PBINDS
@@ -557,6 +554,8 @@ b = Pbind(
 ).play;
 )
 
+b.stop;
+
 //When we press play, we can hear that the sound has some elements that we we have not defined like a rhythm.
 //We can add rhythm using \dur
 (
@@ -625,6 +624,10 @@ p = ProxySpace.push;
 
 //Or I can show you an alternative.
 
+
+<<<<< REVIEWED TO HERE >>>>>
+
+
 /*__________________________________________________________________/*
 
    PDEF
@@ -647,7 +650,7 @@ Pdef(\test,
 	))
 )
 
-Pdef(\test).play
+Pdef(\test).play;
 
 Pdef(\test).fadeTime = 2
 
