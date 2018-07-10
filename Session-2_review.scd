@@ -147,6 +147,7 @@ b.play;
 
 // Pdef
 // Hmm WTF?!
+// Kinda get it but not really
 
 (
 Pdef(\test,
@@ -162,6 +163,15 @@ Pdef(\test,
 Pdef(\test).play;
 Pdef(\test).stop;
 Pdef(\test).fadeTime = 2
+
+/************************************************************/
+
+// Clock
+
+t = TempoClock.new(140/60)
+Pdef(\test).play(t);
+t.tempo = 45/60
+Pdef(\test).stop(t);
 
 /************************************************************/
 

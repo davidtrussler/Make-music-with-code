@@ -67,6 +67,9 @@ Pdef(\perc,
 )
 )
 
+t = TempoClock.new(120/60);
+t.tempo = 180/60;
+
 Pdef(\perc).play(t);
 Pdef(\perc).stop;
 

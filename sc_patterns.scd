@@ -648,15 +648,11 @@ Pdef(\test,
 )
 
 Pdef(\test).play;
-
 Pdef(\test).fadeTime = 2
 
 //You can see all the Pdefs you have running in a cute GUI using this line of code.
 
 PdefAllGui(16)
-
-
-<<<<< REVIEWED TO HERE >>>>>
 
 
 /*__________________________________________________________________/*
@@ -675,7 +671,12 @@ t = TempoClock.new(140/60)
 
 t.tempo = 45/60
 
-Pdef(\test).stop(t)
+Pdef(\test).play(t);
+
+
+<<<<< REVIEWED TO HERE >>>>>
+
+
 /*__________________________________________________________________/*
 
    PPAR
