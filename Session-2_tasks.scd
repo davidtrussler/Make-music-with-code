@@ -12,17 +12,17 @@
 // SynthDef_percussion
 (
 SynthDef(\sn_perc,
-	{ |out=0, amp=1, sustain=0.2, freq=40|
+	{ |out=0, amp=1, sustain=0.2, freq=40, pan=0|
 		var snd, env;
 
-		snd = {Pan2.ar(SinOsc.ar(Line.ar(freq, freq/2, sustain), 0, 1), 0)};
+		snd = {Pan2.ar(SinOsc.ar(Line.ar(freq, freq/2, sustain), 0, 1), pan)};
 		env = EnvGen.ar(Env.perc(0.01, 1), doneAction:2);
 
 		OffsetOut.ar(out, snd * env * amp);
 }).add;
 )
 
-~sn_perc = Synth(\sn_perc, [\freq, 80, \sustain, 0.4]);
+~sn_perc = Synth(\sn_perc, [\freq, 100, \sustain, 0.4]);
 
 // SynthDef_pad
 (
@@ -52,4 +52,27 @@ SynthDef(\sn_nun, { |out=0, amp=1, sustain=10, freq=440|
 }).add;
 )
 
-~sn_nun = Synth(\sn_nun, [\freq, 2100, \sustain, 40]);
+////////
+
+// This just plays the percussive SynthDef in an everlasting loop
+(
+Pdef(\perc,
+	Pbind(
+		\instrument, \sn_perc,
+		\freq, 120,
+		\sustain, 0.5,
+		\amp, 1,
+		\pan, 0
+	).loop;
+)
+)
+
+Pdef(\perc).play(t);
+Pdef(\perc).stop;
+
+////////
+
+s.boot;
+s.reboot;
+s.meter;
+s.quit;
