@@ -625,9 +625,6 @@ p = ProxySpace.push;
 //Or I can show you an alternative.
 
 
-<<<<< REVIEWED TO HERE >>>>>
-
-
 /*__________________________________________________________________/*
 
    PDEF
@@ -657,6 +654,9 @@ Pdef(\test).fadeTime = 2
 //You can see all the Pdefs you have running in a cute GUI using this line of code.
 
 PdefAllGui(16)
+
+
+<<<<< REVIEWED TO HERE >>>>>
 
 
 /*__________________________________________________________________/*

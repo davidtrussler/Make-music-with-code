@@ -19,7 +19,7 @@ EnvGen.ar(Env.perc(0.05,0.5,1.0,0), doneAction: 2);
 // SynthDef
 (
 SynthDef(\sn, {
-    |out=0, amp=0.1, sustain=0.1, pan=0, freq = 200|
+    |out=0, amp=1, sustain=0.1, pan=0, freq = 200|
     var snd, env;
     snd = Pan2.ar(SinOsc.ar(freq), pan);
     env = EnvGen.ar(Env.perc(0.01, sustain), doneAction:2);
@@ -138,11 +138,32 @@ b = Pbind(
 	\freq, Pseries(100, 100, 10),
 	\sustain, 2,
 	\pan, 0
-).play;
+).loop
 )
+
+b.play;
 
 /************************************************************/
 
+// Pdef
+// Hmm WTF?!
+
+(
+Pdef(\test,
+	Pbind(
+		\instrument, \sn,
+		\freq, Pseries(100, 100, 10),
+		\sustain, 2,
+		\pan, 0
+	).loop
+)
+)
+
+Pdef(\test).play;
+Pdef(\test).stop;
+Pdef(\test).fadeTime = 2
+
+/************************************************************/
 
 s.quit;
 s.meter;
