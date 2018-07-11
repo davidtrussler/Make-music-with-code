@@ -1,8 +1,6 @@
 // Review of Session 2
 // Compiled with general notes (https://www.evernote.com/shard/s336/nl/52980809/4025006e-4517-4451-a468-cf2ea64cecd3/)
 
-s.boot;
-
 // Envelopes
 
 // Env
@@ -175,5 +173,32 @@ Pdef(\test).stop(t);
 
 /************************************************************/
 
+// Ppar
+
+(
+Pdef(\test,
+	Ppar([
+		Pbind(
+			\instrument, \sn,
+			\freq, Pseries(100, 100, 10),
+			\sustain, 2,
+			\pan, -1
+		).loop,
+
+		Pbind(
+			\instrument, \sn,
+			\freq, Pseries(500, 10, 10),
+			\sustain, 2,
+			\pan, 1
+		).loop
+	])
+)
+)
+
+Pdef(\test).stop;
+
+/************************************************************/
+
+s.boot;
 s.quit;
 s.meter;
