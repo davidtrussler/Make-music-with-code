@@ -271,10 +271,6 @@ r = Routine({
 r.play;
 r.stop;
 
-
-<<<<< REVIEWED TO HERE >>>>>
-
-
 //Below we can see that if we place a {}.loop around the contents of the Routine it will run indefinitely
 (
 r = Routine({
@@ -325,19 +321,27 @@ r.stop
 
 //It we wanted to generate a series of numbers, using a Routine we could write something a bit like this:
 
+(
 a = Routine {
 	var i=0;
 	loop {
 		i.yield;
 		i = i + 1;
 };};
+)
 
 a.nextN(15);
 
 
 //We can simplify this a bit
 
-a = Routine {(0..).do{ |i| i.yield; }; };
+(
+a = Routine {
+	(0..).do{
+		|i| i.yield;
+	};
+};
+)
 
 a.nextN(10);
 
@@ -372,7 +376,7 @@ q.next; // calling this repeatedly gets the desired increasing integers
 //but we can of course simplify this as above to
 
 a = Pseries(0, 1, 10).asStream;
-a.next; // always returns the Pseries, not actual numbers
+a.next; // returns the actual numbers
 
 //Lovely!
 
@@ -391,13 +395,15 @@ q.next; // resumes where q left off, with no effect from getting values from r
 //LIST PATTERNS
 //We can give pattern a list of values and have it read them out in different orders. We can control the repeats.
 
-(Pseq([100, 200, 300, 400], 1) + .x Pseq([1,2,3,4], 1)).asStream.all;
+// (Pseq([100, 200, 300, 400], 1) + .x Pseq([1,2,3,4], 1)).asStream.all;
+
+Pseq([100, 200, 300, 400], 2).asStream.all;
 
 Pser([0,1,2,3,4], 8).asStream.all;
 
 //OK What about this one:
 
-Pslide(#[1, 2, 3, 4, 5, 6, 7, 8], 10, 3, 1, 0, false).asStream.all
+Pslide([1, 2, 3, 4, 5, 6, 7, 8], 7, 3, 1, 0, false).asStream.all
 
 
 //Other patterns, can you make them stream? What are they doing?
@@ -409,13 +415,13 @@ Pwrand
 Pwalk
 Ptuple
 
+
 //I'm gonna show you Place because it's too good to miss.
 
 Place([0, [1, 2], [3, 4, 5]], 3).asStream.all;
 
 
 //I like this one also, you can nest patterns is anything, but let's see what this one does.
-
 Ppatlace([Pwhite(1, 10), Pwhite(57, 65)], 5).asStream.all
 
 
@@ -548,6 +554,8 @@ b = Pbind(
 ).play;
 )
 
+b.stop;
+
 //When we press play, we can hear that the sound has some elements that we we have not defined like a rhythm.
 //We can add rhythm using \dur
 (
@@ -616,6 +624,7 @@ p = ProxySpace.push;
 
 //Or I can show you an alternative.
 
+
 /*__________________________________________________________________/*
 
    PDEF
@@ -638,8 +647,7 @@ Pdef(\test,
 	))
 )
 
-Pdef(\test).play
-
+Pdef(\test).play;
 Pdef(\test).fadeTime = 2
 
 //You can see all the Pdefs you have running in a cute GUI using this line of code.
@@ -663,7 +671,12 @@ t = TempoClock.new(140/60)
 
 t.tempo = 45/60
 
-Pdef(\test).stop(t)
+Pdef(\test).play(t);
+
+
+<<<<< REVIEWED TO HERE >>>>>
+
+
 /*__________________________________________________________________/*
 
    PPAR
