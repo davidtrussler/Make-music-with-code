@@ -88,13 +88,20 @@ Platform.resourceDir +/+ "sounds/a11wlk01.wav"
 
 //The  line below reads audio from a sound file. The arguments for Buffer are the server where the audio is loaded (think of it as a tape deck), and the sound file name.
 
-~b_1=Buffer.read(s,"/Users/joannearmitage/Dropbox/sc_1/sc3/samples/CB.WAV" );
+~b_1=Buffer.read(s, "/Users/davidtrussler/MusicProduction/Make-music-with-code/samples/001_v_blipp02.wav");
+
 
 //If we look at the post window we can see that the first value we get is 0. This is the buffer number
 
 //We can also post this information to the window
 [~b_1.bufnum, ~b_1.numChannels, ~b_1.path, ~b_1.numFrames].postln;
 
+~b_1.bufnum
+~b_1.numChannels
+~b_1.path
+~b_1.numFrames
+~b_1.sampleRate
+~b_1.plot()
 
 //We can play this buffer. We know what the first number is doing but what about the second?
 {PlayBuf.ar(1, ~b_1.bufnum)}.play(s);
@@ -104,21 +111,46 @@ Platform.resourceDir +/+ "sounds/a11wlk01.wav"
 //Free the buffer!
 ~b_1.free
 
+
 //You can also record to a buffer from any input. Assuming you have a two channel system, the inputs should be 2 and 3. (Check your sound settings in the system preferences.) You can record over an existing buffer, e.g. the ones we just created above, but it is more likely you will want a new one, which has to be created, or allocated before hand. The size of the buffer is the sample rate * number of seconds
 
 //Not working, maybe test later
+
+// allocate a Buffer
 ~b_2 = Buffer.alloc(s, 44100 * 4.0, 1); // a four second 1 channel Buffer
+// b = Buffer.alloc(s, 44100 * 4.0, 1); // a four second 1 channel Buffer
 
-{RecordBuf.ar(In.ar(2), ~b_2.bufnum, loop: 0)}.play;
+// record for four seconds
+RecordBuf.ar(In.ar(0, 1), ~b_2.bufnum, doneAction: 2, loop: 0);
+// (
+// SynthDef(\help_RecordBuf, { arg out = 0, bufnum = 0;
+// 	    var formant;
+// 	//     formant = Formant.ar(XLine.kr(100,600, 4), 2000, 800, 0.125);
+// 	formant = In.ar();
+// 	    RecordBuf.ar(formant, bufnum, doneAction: 2, loop: 0);
+// }).play(s,[\out, 0, \bufnum, b]);
+// )
 
-{PlayBuf.ar(1, ~b_2.bufnum)}.play(s);
-
-
+// Play it back
+// {PlayBuf.ar(1, ~b_2.bufnum)}.play(s);
 (
+SynthDef('~b_2', { arg out = 0, bufnum = 0;
+	    var playbuf;
+	    playbuf = PlayBuf.ar(1,bufnum);
+	    FreeSelfWhenDone.kr(playbuf); // frees the synth when the PlayBuf is finished
+	    Out.ar(out, playbuf);
+}).play(s, [\out, 0, \bufnum, ~b_2.bufnum]);
+)
+
+// Free the buffer
+~b_2.free;
+// b.free;
+
+
 //this loads into a buffer the default sound that comes with SuperCollider
-//.read brings in the whole sound at once
 ~b_3 = Buffer.read(s,Platform.resourceDir +/+ "sounds/a11wlk01.wav"); //store handle to Buffer in global variable b
 
+(
 SynthDef("playbuf",{ arg out=0,bufnum=0, rate=1, trigger=1, startPos=0, loop=1;
 	Out.ar(out,
 		Pan2.ar(PlayBuf.ar(1,bufnum, BufRateScale.kr(bufnum)*rate, trigger, BufFrames.ir(bufnum)*startPos, loop),0.0)
@@ -128,24 +160,10 @@ SynthDef("playbuf",{ arg out=0,bufnum=0, rate=1, trigger=1, startPos=0, loop=1;
 
 Synth(\playbuf, [\out, 0, \bufnum, ~b_3.bufnum]);
 
+//Repeats as there is not envelope.
+
 //Add your own sound
 
-(
-//this loads into a buffer the default sound that comes with SuperCollider
-//.read brings in the whole sound at once
-~b_4 = Buffer.read(s,"/Users/joannearmitage/Dropbox/sc_1/sc3/samples/HT50.WAV"); //store handle to Buffer in global variable b
-
-SynthDef("playbuf",{ arg out=0,bufnum=0, rate=1, trigger=1, startPos=0, loop=1;
-	Out.ar(out,
-		Pan2.ar(PlayBuf.ar(1,bufnum, BufRateScale.kr(bufnum)*rate, trigger, BufFrames.ir(bufnum)*startPos, loop),0.0)
-	)
-}).add;
-)
-
-
-Synth(\playbuf, [\out, 0, \bufnum, ~b_4.bufnum, \rate, 10]);
-
-//Repeats as there is not envelope.
 
 //Example with GUI in next section
 //Example using a folder (i.e. Ultiverse synthdef)
@@ -153,6 +171,10 @@ Synth(\playbuf, [\out, 0, \bufnum, ~b_4.bufnum, \rate, 10]);
 //Basic introduction to buffers. You can explore things like:
 //Granular synthesis:
 //Wavetables:
+
+
+<<<<< REVIEWED TO HERE >>>>>
+
 
 /*__________________________________________________________________/*
 
