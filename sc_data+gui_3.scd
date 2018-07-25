@@ -172,8 +172,7 @@ Synth(\playbuf, [\out, 0, \bufnum, ~b_3.bufnum]);
 //Granular synthesis:
 //Wavetables:
 
-
-<<<<< REVIEWED TO HERE >>>>>
+s.quit
 
 
 /*__________________________________________________________________/*
@@ -205,15 +204,19 @@ y.postln;
 
 //We could plot this data
 [~ch_n, ~ch_r].plot("mystery data");
+~ch_n.plot("mystery data");
 
 //We can select a point in the array that we want to find:
 
 ~ch_n[34]
+~ch_n.at(34);
 
 //This returns the 35th value in the array.
 
 //Can you find the 37th value in the ~ch_r array?
 
+
+<<<<< REVIEWED TO HERE >>>>>
 
 
 //We can use a Task or Routine to cycle through the data.
@@ -223,7 +226,6 @@ t = Task({
 		~ch_n[i].postln;
 		~ch_r[i]/2.wait;
 	});
-
 }).play
 )
 
