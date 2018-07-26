@@ -216,24 +216,20 @@ y.postln;
 //Can you find the 37th value in the ~ch_r array?
 
 
-<<<<< REVIEWED TO HERE >>>>>
-
-
 //We can use a Task or Routine to cycle through the data.
+~ch_n = [63, 63, 60, 63];
+~ch_r = [0.75, 1.25, 0.75];
+
 (
-t = Task({
+t = Task.new({
 	~ch_n.size.do({arg i;
 		~ch_n[i].postln;
 		~ch_r[i]/2.wait;
 	});
-}).play
+})
 )
 
-
-
-Array
-
-
+t.play;
 
 //And we can play this data
 
@@ -282,6 +278,10 @@ Using your new knowledge of arrays and buffers, complete the following task:
       - Make a short re-mix of the above tune.
 
 */__________________________________________________________________*/
+
+
+
+<<<<< REVIEWED TO HERE >>>>>
 
 
 
