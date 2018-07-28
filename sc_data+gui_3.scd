@@ -301,9 +301,6 @@ Using your new knowledge of arrays and buffers, complete the following task:
 //Check here: https://composerprogrammer.com/teaching/supercollider/sctutorial/6.2%20Control%20Buses.html
 
 
-<<<<< REVIEWED TO HERE >>>>>
-
-
 /*__________________________________________________________________/*
 
    MOUSE AND KEYBOARD
@@ -391,10 +388,22 @@ One reason it may be difficult to pick out a melody is that the warp is set to l
 
 //You can also use the keyboard to trigger things.
 
+// execute the code below to find out a key's keycode
+// the char and keycode of any key you press will be printed in the post window
+(
+w = Window.new("I catch keystrokes");
+w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode;  [char, keycode].postln; };
+w.front;
+)
+
 //key code 0 = 'a' key
 { SinOsc.ar(800, 0, KeyState.kr(0, 0, 0.1)) }.play; //Server-side
 
+
 //Create your own Synth that you can control using your mouse and keyboard.
+
+
+<<<<< REVIEWED TO HERE >>>>>
 
 
 /*__________________________________________________________________/*
