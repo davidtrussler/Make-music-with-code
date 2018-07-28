@@ -281,9 +281,6 @@ Using your new knowledge of arrays and buffers, complete the following task:
 
 
 
-<<<<< REVIEWED TO HERE >>>>>
-
-
 
 /*__________________________________________________________________/*
 
@@ -302,6 +299,9 @@ Using your new knowledge of arrays and buffers, complete the following task:
 //We don't really have time to cover control buses but you will find them useful when you start to get a bit further in SC.
 
 //Check here: https://composerprogrammer.com/teaching/supercollider/sctutorial/6.2%20Control%20Buses.html
+
+
+<<<<< REVIEWED TO HERE >>>>>
 
 
 /*__________________________________________________________________/*
