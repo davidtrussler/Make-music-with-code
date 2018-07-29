@@ -403,9 +403,6 @@ w.front;
 //Create your own Synth that you can control using your mouse and keyboard.
 
 
-<<<<< REVIEWED TO HERE >>>>>
-
-
 /*__________________________________________________________________/*
 
    GUI
@@ -442,7 +439,7 @@ GUI.qt;
 (
 var w;
 
-w=Window("My Window", Rect(600,200,1000,200)); //hmmm what is this doing 🧐
+w=Window("My Window", Rect(600,200,500,200)); //hmmm what is this doing 🧐
 
 w.front; //this line bring the window to front of screen
 )
@@ -453,25 +450,14 @@ w.front; //this line bring the window to front of screen
 //We specify the window we wish to use i.e. and use Rect to specify where the controls appear and their size.
 //Now this time the co-ordinates are no longer relative to the screen, but relative to the top left corner of the window, and x and y positions indicate distance from left and from top respectively.
 
-
 (
 var w, slider;
-
-w=Window("My Window", Rect(100,500,200,100));
-//A 200 by 100 window appears at screen co-ordinates (100, 500)
-
-slider=Slider(w,Rect(10,10,180,40))
-.background_(Color.rand) //Create a slider object
-.orientation_(\horizontal) //horizontal is default can also use vertical
-.step_(0.1)
-//take a look at the helpfile and add some more methods here
-; //increment/decrement amount
-
-
-
+w = Window("My Window", Rect(100,500,200,100));
+slider = Slider(w,Rect(10,10,180,40))
+    .background_(Color.rand)
+    .orientation_(\horizontal)
+    .step_(0.1);
 slider.action_({slider.value.postln;});
-//this is the callback: the function is called whenever you move the slider. action_ means to set up the slider object to use the function passed in as its argument.
-
 w.front;
 )
 
@@ -488,6 +474,7 @@ w.front;
 1.0.rand.linlin(0.0,1.0,14.7,64.71)	//create a random number from 0.0 to 1.0, and use a built in function to remap it to the output range 14.7 to 64.71
 
 1.0.rand.linexp(0.0,1.0,14.7,64.71) //create a random number from 0.0 to 1.0, and use a built in function to remap it to the output range 14.7 to 64.71 with an exponential function, which tends to spend longer over lower values
+
 
 //Rather than doing these remappings yourself, an alternative is to take advantage of a ControlSpec, a helpful class which can be used to turn input into any desired range through various available precanned mappings
 
