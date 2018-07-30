@@ -19,3 +19,10 @@ Download from [here](https://www.dropbox.com/sh/o42d7vcmzdr3trl/AAAd0qnrTXPXj2vP
 ### Part Two
 - Review what was learned in this session
 - Complete the Task
+
+### Part Three
+Includes:
+- Buffer
+- Buses
+- Mouse and keyboard
+- GUI
